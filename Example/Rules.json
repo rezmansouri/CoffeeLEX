@@ -1,0 +1,46 @@
+{
+  "symbols": {
+    "keywords": [
+      "main",
+      "public",
+      "static",
+      "void",
+      "class",
+      "int",
+      "for",
+      "while",
+      "String",
+      "System"
+    ],
+    "operators": [
+      "=",
+      ".",
+      "+",
+      "-",
+      ";",
+      "<",
+      "<=",
+      "++",
+      "{",
+      "}",
+      "(",
+      ")",
+      "[",
+      "]"
+    ]
+  },
+  "regex": {
+    "number": "[+-]?([0-9]*[.])?[0-9]+",
+    "identifier": "[A-Z_a-z]+",
+    "string": "[\"][A-Za-z]*[\"]",
+    "comment": "//[\\w| ]*"
+  },
+  "delimiters": {
+    "mainDelimiter": " ",
+    "generalDelimiters": [
+      "\n",
+      "\t",
+      "\r"
+    ]
+  }
+}
