@@ -111,7 +111,7 @@ Using an implicit automata in the CoffeeLEX.analyze() the source code is checked
 The token structure is implemented as follows:
 
 * value:         The value of the token.
-* type:          The type of the token wether it's a keyword or and identifier or an operator or a string.
+* type:          The type of the token whether it's a keyword or an identifier or an operator or a string.
 * nextToken:     A reference to the next token which is used in the linkedList that the CoffeeLEX is generating.
 * rowNumber:     An integer declaring the line of the program in which the token is at.
 * columnNumber:  An integer declaring the column of the program in which the token is at.
