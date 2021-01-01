@@ -6,7 +6,7 @@ The output of CoffeeLEX is a linked list of the tokens of the program.
 ## Input Format
 The rules need to be given in a JSON Format File.
 
-The file must consist a JSON object with the Following Keys:
+The file must consist of a JSON object with the Following Keys:
 
 1. **symbols**
 
