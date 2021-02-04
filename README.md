@@ -2,104 +2,51 @@
 ## CoffeeLEX is a Lexical Analyzer for programming languages.
 It takes the Lexical Rules of a language and a program as inputs and checks for errors.
 
+*** Current Version of CoffeeLEX accepts a more dynamic representation of the Lexical Rules Input compared to the Version 1.0 ***
+*** It was improved to work with SynTAXI Syntax Analyzer hosted at https://github.com/rezmansouri/SynTAXI ***
+
 The output of CoffeeLEX is a linked list of the tokens of the program.
 ## Input Format
 The rules need to be given in a JSON Format File.
 
-The file must consist a JSON object with the Following Keys:
+It must consist of a JSON Array of JSON Objects.
 
-1. **symbols**
+Each JSON Object  holds token signatures of tokens with similar priorities to be analyzed.
 
-   A JSON object with the following keys:
+For example in the following input :
 
-   1. **keywords**:
-   
-        A JSON array of the preserved keywords of the programming language as strings.
-   
-   2. **operators**:
-   
-        A JSON array of the operators of the programming language such as *; ? || ++ / .* as strings.
-   
-2. **regex**
-
-   1. **number**:
-   
-        The regular expression in which the numbers in your language must match as a string.
-   
-   2. **identifier**
-   
-        The regular expression in which the identifiers (such as variable names or function names) in your language must match as a string.
-   
-   3. **string**
-   
-        The regular expression in which the numbers in your language must match as a string.
-   
-   4. **comment**
-   
-        The regular expression in which the comments in your language must match as a string. 
-   
-   ***Note: Only Single Line Comments are Covered By CoffeeLEX***
-   
-3. **delimiters**
-
-     1. **mainDelimiter**
-     
-          The main delimiter of your language which is usually *Space* as a string.
-          
-     2. **generalDelimiters**
-     
-          The general delimiters of your language such as *\n \r \t* as strings.
-          
-### Input Example:
 ```
-{
- "symbols": {
-    "keywords": [
-      "main",
-      "public",
-      "static",
-      "void",
-      "class",
-      "int",
-      "for",
-      "while",
-      "String",
-      "System"
-    ],
-    "operators": [
-      "=",
-      ".",
-      "+",
-      "-",
-      ";",
-      "<",
-      "<=",
-      "++",
-      "{",
-      "}",
-      "(",
-      ")",
-      "[",
-      "]"
-    ]
+[
+  {
+    "Int Keyword": "int",
+    "Character Input Keyword": "cin",
+    "Character Output keyword": "cout",
+    "For Keyword": "for",
+    "Return": "return"
   },
-  "regex": {
-    "number": "[+-]?([0-9]*[.])?[0-9]+",
-    "identifier": "[A-Z_a-z]+",
-    "string": "[\"][\.]*[\"]",
-    "comment": "//[\.| ]*"
- },
-  "delimiters": {
-    "mainDelimiter": " ",
-    "generalDelimiters": [
-      "\n",
-      "\t",
-      "\r"
-    ]
+  {
+    "Identifier": "[A-Z_a-z]+",
+    "Comma": ",",
+    "Semicolon": ";",
+    "Parentheses Open": "\\(",
+    "Parentheses Close": "\\)",
+    "Increment Operator": "\\+\\+",
+    "Assignment": "=",
+    "Multiply": "\\*",
+    "Accolade Open": "\\{",
+    "Accolade Close": "\\}",
+    "Get Char Operator": ">>",
+    "Put Char Operator": "<<",
+    "Smaller Equal": "<=",
+    "Number":"[+-]?([0-9]*[.])?[0-9]+",
+    "String":"\".*\""
   }
-}
+]
 ```
 
+The first JSON Object is declaring the signature of the reserved keywords for the language which have the highest priority to be analyzed.
+
+For example for the token value of "count" if there is no priority set, it will be analyzed as an identifier instead of its own kind.
 ## Process
 
 CoffeeLEX gets the address of your rules JSON File and the address of your Program source code file.
@@ -144,85 +91,73 @@ Could not recognize Token.
 
 For Example The output of CoffeeLEX for the previously mentioned rules and the following program
 ```
-class Example {
-    public static void main(String[] args) {
-        int integerVariable = 100;
-        int minusIntegerVariable = -100;
-        int result = integerVariable - minusIntegerVariable;
-        for (int i=0; i<result; i++) {
-            System.out.println(i);
-        }
-        String x = "hello";
-        //This is a Comment
-    }
+int main()
+{
+ int i,fact=1,number;
+ cout << "Enter a number: ";
+  cin >> number;
+    for(i=1;i<=number;i++){
+      fact=fact*i;
+  }
+  cout << fact;
+return 0;
 }
-
 ```
 is as follows:
 ```
-Value                 Type        Row  Column  
------                 ----        ---  -----   
-class                 keyword     1    1       
-Example               identifier  1    5       
-{                     operator    1    13      
-public                keyword     2    5       
-static                keyword     2    10      
-void                  keyword     2    17      
-main                  keyword     2    22      
-(                     operator    2    27      
-String                keyword     2    28      
-[                     operator    2    34      
-]                     operator    2    35      
-args                  identifier  2    37      
-)                     operator    2    41      
-{                     operator    2    43      
-int                   keyword     3    9       
-integerVariable       identifier  3    11      
-=                     operator    3    27      
-100                   number      3    30      
-;                     operator    3    33      
-int                   keyword     4    9       
-minusIntegerVariable  identifier  4    11      
-=                     operator    4    32      
--100                  number      4    35      
-;                     operator    4    36      
-int                   keyword     5    9       
-result                identifier  5    11      
-=                     operator    5    18      
-integerVariable       identifier  5    21      
--                     operator    5    36      
-minusIntegerVariable  identifier  5    39      
-;                     operator    5    59      
-for                   keyword     6    9       
-(                     operator    6    11      
-int                   keyword     6    13      
-i                     identifier  6    16      
-=                     operator    6    18      
-0                     number      6    19      
-;                     operator    6    20      
-i                     identifier  6    22      
-<                     operator    6    23      
-result                identifier  6    24      
-;                     operator    6    30      
-i                     identifier  6    32      
-++                    operator    6    33      
-)                     operator    6    34      
-{                     operator    6    37      
-System                keyword     7    13      
-.                     operator    7    18      
-out                   identifier  7    19      
-.                     operator    7    22      
-println               identifier  7    23      
-(                     operator    7    30      
-i                     identifier  7    31      
-)                     operator    7    32      
-;                     operator    7    33      
-}                     operator    8    9       
-String                keyword     9    9       
-x                     identifier  9    14      
-=                     operator    9    16      
-"hello"               string      9    19      
-;                     operator    9    26      
-}                     operator    11   5       
-}                     operator    12   1       
+Value               Type                      Row  Column  
+-----               ----                      ---  -----   
+int                 Int Keyword               1    1       
+main                Identifier                1    5       
+(                   Parentheses Open          1    9       
+)                   Parentheses Close         1    9       
+{                   Accolade Open             2    0       
+int                 Int Keyword               3    2       
+i                   Identifier                3    6       
+,                   Comma                     3    7       
+fact                Identifier                3    8       
+=                   Assignment                3    12      
+1                   Number                    3    13      
+,                   Comma                     3    14      
+number              Identifier                3    15      
+;                   Semicolon                 3    20      
+cout                Character Output keyword  4    2       
+<<                  Put Char Operator         4    7       
+"Enter a number: "  String                    4    10      
+;                   Semicolon                 4    27      
+cin                 Character Input Keyword   5    3       
+>>                  Get Char Operator         5    7       
+number              Identifier                5    10      
+;                   Semicolon                 5    15      
+for                 For Keyword               6    5       
+(                   Parentheses Open          6    8       
+i                   Identifier                6    9       
+=                   Assignment                6    10      
+1                   Number                    6    11      
+;                   Semicolon                 6    12      
+i                   Identifier                6    13      
+<=                  Smaller Equal             6    14      
+number              Identifier                6    16      
+;                   Semicolon                 6    22      
+i                   Identifier                6    23      
+++                  Increment Operator        6    24      
+)                   Parentheses Close         6    26      
+{                   Accolade Open             6    26      
+fact                Identifier                7    7       
+=                   Assignment                7    11      
+fact                Identifier                7    12      
+*                   Multiply                  7    16      
+i                   Identifier                7    17      
+;                   Semicolon                 7    17      
+}                   Accolade Close            8    2       
+cout                Character Output keyword  9    3       
+<<                  Put Char Operator         9    8       
+fact                Identifier                9    11      
+;                   Semicolon                 9    14      
+return              Return                    10   1       
+0                   Number                    10   8       
+;                   Semicolon                 10   8       
+}                   Accolade Close            11   0       
+CoffeeLex © - 2021
+Developed By Reza Mansouri
 ```

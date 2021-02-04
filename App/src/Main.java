@@ -3,6 +3,7 @@ Developed By Reza Manosuri
 std_reza_mansouri@khu.ac.ir
 Hosted On GitHub at https://github.com/rezmansouri/CoffeeLEX
  */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,8 +62,8 @@ public class Main {
         }
         return result.toString();
     }
-    
-    private static void printCredits () {
+
+    private static void printCredits() {
         System.out.println("CoffeeLex © - 2021");
         System.out.println("Developed By Reza Mansouri");
     }

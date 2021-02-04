@@ -1,0 +1,26 @@
+[
+  {
+    "Int Keyword": "int",
+    "Character Input Keyword": "cin",
+    "Character Output keyword": "cout",
+    "For Keyword": "for",
+    "Return": "return"
+  },
+  {
+    "Identifier": "[A-Z_a-z]+",
+    "Comma": ",",
+    "Semicolon": ";",
+    "Parentheses Open": "\\(",
+    "Parentheses Close": "\\)",
+    "Increment Operator": "\\+\\+",
+    "Assignment": "=",
+    "Multiply": "\\*",
+    "Accolade Open": "\\{",
+    "Accolade Close": "\\}",
+    "Get Char Operator": ">>",
+    "Put Char Operator": "<<",
+    "Smaller Equal": "<=",
+    "Number":"[+-]?([0-9]*[.])?[0-9]+",
+    "String":"\".*\""
+  }
+]
