@@ -2,11 +2,12 @@
 ## CoffeeLEX is a Lexical Analyzer for programming languages.
 It takes the Lexical Rules of a language and a program as inputs and checks for errors.
 
+The output of CoffeeLEX is a linked list of the tokens of the program.
+
+
 ***Current Version of CoffeeLEX accepts a more dynamic representation of the Lexical Rules Input compared to the Version 1.0***
 
 ***It was improved to work with SynTAXI Syntax Analyzer hosted at https://github.com/rezmansouri/SynTAXI***
-
-The output of CoffeeLEX is a linked list of the tokens of the program.
 
 ## Input Format
 
