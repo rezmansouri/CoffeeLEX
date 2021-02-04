@@ -1,4 +1,4 @@
-# CoffeeLEX©
+# CoffeeLEX ☕
 ## CoffeeLEX is a Lexical Analyzer for programming languages.
 It takes the Lexical Rules of a language and a program as inputs and checks for errors.
 
