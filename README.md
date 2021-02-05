@@ -50,7 +50,7 @@ For example in the following input :
 
 The first JSON Object is declaring the signature of the reserved keywords for the language which have the highest priority to be analyzed.
 
-For example for the token value of "count" if there is no priority set, it will be analyzed as an identifier instead of its own kind.
+For example for the token value of "cout" if there is no priority set, it will be analyzed as an identifier instead of its own kind.
 ## Process
 
 CoffeeLEX gets the address of your rules JSON File and the address of your Program source code file.
